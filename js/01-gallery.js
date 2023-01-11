@@ -1,6 +1,6 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
-// import * as basicLightbox from 'basiclightbox';
+
 console.log(basicLightbox);
 
 const galleryDivEl = document.querySelector('.gallery');
@@ -10,7 +10,6 @@ function createCard(galleryItems) {
     const galleryItemEl = document.createElement('div');
 
     galleryItemEl.classList.add('gallery__item');
-    galleryDivEl.append(galleryItemEl);
 
     const refImage = document.createElement('a');
 
@@ -26,13 +25,14 @@ function createCard(galleryItems) {
     imageEl.alt = item.description;
     refImage.append(imageEl);
 
-    return item;
+    return galleryItemEl;
   });
+  galleryDivEl.append(...newArray);
+  console.log(newArray);
 }
 createCard(galleryItems);
 
 function handleClick(e) {
-  //   console.log(e.target.nodeName);
   e.preventDefault();
   if (e.target.nodeName !== 'IMG') {
     return;
@@ -50,18 +50,14 @@ function handleClick(e) {
   clickImage.show();
 
   const modalEl = document.querySelector('.modal');
-  //   console.log(modalEl);
 
   function modalCloseClick(e) {
-    // console.log('modalCloseClick');
     clickImage.close();
     document.removeEventListener('keydown', modalCloseESCAPE);
   }
   modalEl.addEventListener('click', modalCloseClick);
 
   function modalCloseESCAPE(event) {
-    // console.log('modalCloseESCAPE');
-    // console.log(event.key);
     if (event.key === 'Escape') {
       clickImage.close();
       document.removeEventListener('keydown', modalCloseESCAPE);
